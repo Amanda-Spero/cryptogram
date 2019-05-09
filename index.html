@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="assets/javascript/game.js"></script>
+</head>
+    <body>
+            <div class="header">
+                    <h1 class="text-center">Cryptogram!
+                    </h1>
+                    <h1 id="winBanner"></h1>
+                    <span id="playAgain"></span>
+            </div>
+            <!-- <p>Guess a letter: </p><input id="input" /> -->
+            <div display="block">Wins: <span id="wins"></span></div>
+            <div display="block">Losses: <span id="losses"></span></div>
+            <div display="block">Guesses left: <span id="guesses-left"></span></div>
+            <div display="block">Unguessed letters: </div><div id="LetterLleft" ></div>
+            <!-- <button id="playAgain" visibility="hidden">Play Again</button> -->
+
+<style>
+  /* #playAgain {
+    visibility: hidden;
+  } */
+</style>            
+
+<script type="text/javascript">
+let quotes = [
+   "If life were predictable it would cease to be life, and be without flavor.", 
+   "The road to success and the road to failure are almost exactly the same."
+];
+
+let lettersLeft = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// let randomLetter = null;
+let guessedLetters = [];
+// let guessesLeft = 9;
+// let wins = 0;
+// let losses = 0;
+// let restartButton = document.getElementById("playAgain");
+
+function start() {
+  getRandomQuote();
+  updateLettersLeft();
+}
+
+start();
+
+function restart() {
+  updateLettersLeft();
+  getRandomQuote();
+  guessedLetters = [];
+  console.log(guessedLetters);
+  updateGuessesSoFar();
+}
+
+function getRandomQuote() {
+  randomLetter = quotes[Math.floor(Math.random() * quotes.length)];
+  console.log(getRandomQuote);
+}
+
+function updateGuessesSoFar() {
+  document.getElementById("guessed").innerHTML = guessedLetters;
+}
+
+function updateLettersLeft() {
+  document.getElementById("lettersLeft").innerHTML letters.toUpperCase();
+}
+
+function updateWins() {
+  wins++;
+  document.getElementById("wins").innerHTML = wins;
+}
+
+function updateLosses() {
+  losses++;
+  document.getElementById("losses").innerHTML = losses;
+}
+
+document.onkeyup = function(event) {
+  var letter = String.fromCharCode(event.which).toLowerCase();
+
+  if (letter !== randomLetter) {
+      if (guessesLeft > 0) {
+      guessedLetters.push(letter.toUpperCase());
+      updateGuessesSoFar();
+      guessesLeft --;
+      document.getElementById("guesses-left").innerHTML = guessesLeft;
+    } else if (guessesLeft === 0) {
+      document.getElementById("banner").innerHTML = "You lose :("
+      updateLosses();
+      restart();
+    }
+  } else if (letter === randomLetter) {
+    document.getElementById("banner").innerHTML = "You Win!"
+    updateWins();
+    restart();
+  } 
+}
+
+</script>
+</body>
+</html>
